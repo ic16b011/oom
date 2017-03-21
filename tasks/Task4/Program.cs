@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Task4
 {
@@ -97,9 +98,15 @@ namespace Task4
                 i++;
             }
 
-            string json = JsonConvert.SerializeObject(newFriend);
+            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented };
+            string json = JsonConvert.SerializeObject(newFriend, settings);
 
-            Friends newFriend3 = JsonConvert.DeserializeObject<Friends>(json);
+            var cwd = Directory.GetCurrentDirectory();
+            var file = Path.Combine(cwd, "friends.json");
+            File.WriteAllText(file, json);
+
+            var jsonread = File.ReadAllText(file);
+            Friends newFriend3 = JsonConvert.DeserializeObject<Friends>(jsonread, settings);
             Console.WriteLine(newFriend.Name + " " + newFriend.Place);
             Console.WriteLine(newFriend3.Name + " " + newFriend3.Place);
 
