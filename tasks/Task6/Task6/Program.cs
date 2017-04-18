@@ -92,7 +92,7 @@ namespace Task4
     class Program
     {
         /* async Task2 */
-        static async Task<bool> LongForLoop()
+        static async Task<bool> WaitTask()
         {
             await Task.Delay(1000);
             return true;
@@ -171,7 +171,7 @@ namespace Task4
 
 
             /* async Task2 */
-            Task<bool> temp2 = LongForLoop();
+            Task<bool> temp2 = WaitTask();
             temp2.ContinueWith(t => Console.WriteLine("Task Delay done"));
 
 
